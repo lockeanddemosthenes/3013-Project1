@@ -14,9 +14,10 @@ int main(int argc, char *argv[]) {
 	char *arg1 = "ls -al";
 	char *arg2 = "/home";
 	time_t process_start, process_end;
-	int pid_whoami;
-	int pid_last;
-	int pid_ls;
+	long page_faults, soft_page_faults, hard_page_faults;
+	struct rusage forPageFaults;
+	struct rusage *ptr_forPageFaults;
+	ptr_forPageFaults = &forPageFaults;
 
 	//---------------------whoami section------------------
 	//start timer
@@ -25,8 +26,8 @@ int main(int argc, char *argv[]) {
 	printf("running whoami...\n");
 	strcpy(command, "whoami");
 	system(command);
-	//getting pid for retrieving pagefault info
-
+	//retrieving pagefault info
+    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults)
 	//end timer
 	process_end = clock();
 
@@ -36,8 +37,11 @@ int main(int argc, char *argv[]) {
     time_elapsed = process_end - process_start;
 	printf("Elapsed time: %d milliseconds\n", time_elapsed);
 	//pagefaults code
-	printf("Page Faults: %d\n", a);
-	printf("Page Faults (reclaimed): %d\n", a);
+    hard_page_faults = forPageFaults.ru_majflt;
+    soft_page_faults = forPageFaults.ru_minflt;
+    page_faults = hard_page_faults + soft_page_faults;
+    printf("Page Faults: %ld\n", page_faults);
+	printf("Page Faults (reclaimed): %ld\n", soft_page_faults);
 
 	printf("-- End of Statistics--\n\n");
 
@@ -49,9 +53,9 @@ int main(int argc, char *argv[]) {
 	printf("running last...\n");
 	strcpy(command, "last");
 	system(command);
-	//getting pid for retrieving pagefault info
-
-	//end timer
+	//retrieving pagefault info
+    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults)
+    //end timer
     process_end = clock();
 
 	//last stats
@@ -60,8 +64,11 @@ int main(int argc, char *argv[]) {
     time_elapsed = process_end - process_start;
 	printf("Elapsed time: %d milliseconds\n", time_elapsed);
 	//pagefaults code
-	printf("Page Faults: %d\n", a);
-	printf("Page Faults (reclaimed): %d\n", a);
+    hard_page_faults = forPageFaults.ru_majflt;
+    soft_page_faults = forPageFaults.ru_minflt;
+    page_faults = hard_page_faults + soft_page_faults;
+    printf("Page Faults: %ld\n", page_faults);
+	printf("Page Faults (reclaimed): %ld\n", soft_page_faults);
 	printf("-- End of Statistics--\n\n");
 
 
@@ -71,8 +78,8 @@ int main(int argc, char *argv[]) {
     //running ls -al /home
 	printf("running ls...\n");
 	execl(binaryPath, binaryPath, arg1, arg2, NULL);
-    //getting pid for retrieving pagefault info
-
+    //retrieving pagefault info
+    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults)
     //end timer
     process_end = clock();
 
@@ -83,8 +90,11 @@ int main(int argc, char *argv[]) {
     time_elapsed = process_end - process_start;
 	printf("Elapsed time: %d milliseconds\n", time_elapsed);
 	//pagefaults code
-	printf("Page Faults: %d\n", a);
-	printf("Page Faults (reclaimed): %d\n", a);
+	hard_page_faults = forPageFaults.ru_majflt;
+	soft_page_faults = forPageFaults.ru_minflt;
+    page_faults = hard_page_faults + soft_page_faults;
+	printf("Page Faults: %ld\n", page_faults);
+	printf("Page Faults (reclaimed): %ld\n", soft_page_faults);
 	printf("-- End of Statistics--\n\n");
 	
 
