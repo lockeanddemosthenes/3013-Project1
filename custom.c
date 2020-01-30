@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
         //if not, then the command must be too long.
         //TODO? check if the command is the last line
         if(strchr(command, '\n') == NULL){
-            printf("ERROR: THIS COMMAND IS LONGER THAN ALLOWED INPUT")
+            printf("ERROR: THIS COMMAND IS LONGER THAN ALLOWED INPUT");
             continue;
         }
 
