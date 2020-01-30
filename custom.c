@@ -9,7 +9,7 @@
 
 //forward declarations for our two helper functions
 void runccd(char *inputCommand);
-void runcpwd(char *inputCommand);
+void runcpwd();
 
 int main(int argc, char *argv[]) {
     FILE *filepointer;
@@ -94,6 +94,7 @@ void runccd(char *inputCommand){
 
 //runs the cpwd command
 void runcpwd(){
+    //set to max linux path size
     char cwd[4096];
     getcwd(cwd, 4096);
     printf("Current directory: %s\n", cwd);
