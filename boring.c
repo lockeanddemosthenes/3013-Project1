@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 	strcpy(command, "whoami");
 	system(command);
 	//retrieving pagefault info
-    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults)
+    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults);
 	//end timer
 	process_end = clock();
 
@@ -42,7 +42,6 @@ int main(int argc, char *argv[]) {
     page_faults = hard_page_faults + soft_page_faults;
     printf("Page Faults: %ld\n", page_faults);
 	printf("Page Faults (reclaimed): %ld\n", soft_page_faults);
-
 	printf("-- End of Statistics--\n\n");
 
 
@@ -54,7 +53,7 @@ int main(int argc, char *argv[]) {
 	strcpy(command, "last");
 	system(command);
 	//retrieving pagefault info
-    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults)
+    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults);
     //end timer
     process_end = clock();
 
@@ -79,7 +78,7 @@ int main(int argc, char *argv[]) {
 	printf("running ls...\n");
 	execl(binaryPath, binaryPath, arg1, arg2, NULL);
     //retrieving pagefault info
-    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults)
+    getrusage(RUSAGE_CHILDREN, ptr_forPageFaults);
     //end timer
     process_end = clock();
 
