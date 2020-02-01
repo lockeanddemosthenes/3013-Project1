@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <timer.h>
+#include <time.h>
 
 //forward declarations for our two helper functions
 void runccd(char *inputCommand);
